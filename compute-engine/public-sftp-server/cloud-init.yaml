@@ -1,0 +1,27 @@
+#cloud-config
+timezone: Asia/Tokyo
+locale: en_US.UTF-8
+
+groups:
+  - sftp-users
+
+users:
+  - name: sftp-user
+    groups: sftp-users
+    home: /var/sftp/sftp-user
+    lock_passwd: false
+    # sftp-user/password
+    passwd: $6$rounds=4096$upM.RGK.0k$Vi6ciRLO/HibAMZObsf/LQ3OtvOaM30sAaYo1BkyV4Vs6SKOU05Dpp0bbDe8vk/EOl.AnDhRkyuFHvP8e2kgt.
+
+
+runcmd:
+  - mkdir /var/sftp
+  - chown root:root /var/sftp
+  - mkdir /var/sftp/sftp-user
+  - chown sftp-user:sftp-users /var/sftp/sftp-user
+  - chmod 755 /var/sftp/sftp-user
+  - sed -i -e 's/^PasswordAuthentication no$/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+
+power_state:
+    delay: now
+    mode: reboot
