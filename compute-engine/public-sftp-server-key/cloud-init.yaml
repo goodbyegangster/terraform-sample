@@ -1,0 +1,27 @@
+#cloud-config
+timezone: Asia/Tokyo
+locale: en_US.UTF-8
+
+groups:
+  - sftp-users
+
+users:
+  - name: sftp-user
+    groups: sftp-users
+    home: /var/sftp/sftp-user
+    sudo: false
+    ssh_authorized_keys:
+      - ${public_key}
+
+runcmd:
+  - mkdir /var/sftp
+  - chown root:root /var/sftp
+  - mkdir /var/sftp/sftp-user
+  - chown sftp-user:sftp-users /var/sftp/sftp-user
+  - chmod 755 /var/sftp/sftp-user
+  - sed -i -e 's/^#PubkeyAuthentication yes$/PubkeyAuthentication yes/g' /etc/ssh/sshd_config
+  - sed -i -e 's/^#AuthorizedKeysFile/AuthorizedKeysFile/' /etc/ssh/sshd_config
+
+power_state:
+    delay: now
+    mode: reboot

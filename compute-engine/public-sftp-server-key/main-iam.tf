@@ -1,3 +1,6 @@
+# /******************************************
+#   Service Account
+#  *****************************************/
 resource "google_service_account" "sftp_server" {
   project      = var.PROJECT_NAME
 

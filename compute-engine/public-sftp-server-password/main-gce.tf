@@ -1,3 +1,6 @@
+# /******************************************
+#   SFTP Server(GCE)
+#  *****************************************/
 resource "google_compute_instance" "sftp_server" {
   project                     = var.PROJECT_NAME
 
@@ -14,7 +17,7 @@ resource "google_compute_instance" "sftp_server" {
     initialize_params {
       size  = 10
       type  = "pd-balanced"
-      image = "ubuntu-os-cloud/ubuntu-2004-lts"
+      image = "ubuntu-os-cloud/ubuntu-2204-lts"
       labels = {
         env = "sftp-server"
       }
@@ -32,7 +35,7 @@ resource "google_compute_instance" "sftp_server" {
   }
 
   metadata = {
-    user-data = file("./cloud-init.yaml"),
+    user-data = file("./cloud-init.yaml")
   }
 
   labels = {

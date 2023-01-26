@@ -9,6 +9,7 @@ users:
   - name: sftp-user
     groups: sftp-users
     home: /var/sftp/sftp-user
+    sudo: false
     lock_passwd: false
     # sftp-user/password
     passwd: $6$rounds=4096$upM.RGK.0k$Vi6ciRLO/HibAMZObsf/LQ3OtvOaM30sAaYo1BkyV4Vs6SKOU05Dpp0bbDe8vk/EOl.AnDhRkyuFHvP8e2kgt.
